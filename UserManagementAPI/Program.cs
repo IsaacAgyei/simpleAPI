@@ -1,4 +1,5 @@
 using UserManagementAPI.Repositories;
+using UserManagementAPI.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +20,11 @@ if (app.Environment.IsDevelopment())
   app.UseSwagger();
   app.UseSwaggerUI();
 }
+
+// Register middleware
+app.UseMiddleware<RequestLoggingMiddleware>();
+app.UseMiddleware<AuthenticationMiddleware>();
+app.UseMiddleware<ValidationMiddleware>();
 
 app.UseHttpsRedirection();
 
